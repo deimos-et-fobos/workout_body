@@ -1,30 +1,16 @@
-import { useEffect, useState } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useState } from "react";
+import { useLogin } from "../hooks/useLogin";
 
 const Login = () => {
-  const {signup, dispatch} = useAuthContext();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const {login, error, isLoading} = useLogin();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(email, password);
-    
+    await login(email, password);
   }
-
-  // useEffect(() => {
-  //   const fetchWorkouts = async () => {
-  //     const response = await fetch('/api/signup');
-  //     const json = await response.json();
-
-  //     if (response.ok) {
-  //       dispatch({type: 'SET_WORKOUTS', payload: json})
-  //     }
-  //   }
-
-  //   fetchWorkouts()
-  // }, [dispatch]) // no hay problema con agregar dispatch porque es estable.
-
+  
   return (
     <form className="login" onSubmit={handleSubmit}>
       <h3>Log in</h3>
@@ -34,7 +20,6 @@ const Login = () => {
         type="text"
         onChange={(e) => setEmail(e.target.value)}
         value={email}
-        // className={emptyFields.includes('email') ? 'error' : ''}
       />
 
       <label>Password:</label>
@@ -42,9 +27,9 @@ const Login = () => {
         type="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
-        // className={emptyFields.includes('password') ? 'error' : ''}
       />
-      <button>Log in</button>
+      <button disabled={isLoading}>Log in</button>
+      {error && <div className="error">{error}</div>}
     </form>
   )
 }
