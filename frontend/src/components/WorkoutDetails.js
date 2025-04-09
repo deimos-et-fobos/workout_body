@@ -1,9 +1,9 @@
-import { useWorkoutContext } from "../hooks/useWorkoutContext";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { formatDistanceToNow } from 'date-fns';
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const WorkoutDetails = ({ workout }) => {
-  const { dispatch } = useWorkoutContext()
+  const { dispatch } = useWorkoutsContext()
   const { user } = useAuthContext();
 
   if (!user) {
