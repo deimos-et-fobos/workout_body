@@ -1,1 +1,1 @@
-# workout_body
+# workout_buddy
